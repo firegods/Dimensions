@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!--You title goes here-->
+    <title>Material Dimensions | Manager</title>
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+    <!-- Import icons-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />   
+  <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="js/jQuery.2.1.1.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/html.js"></script>
+    <script type="text/javascript" src="js/Client.js"></script>
+    <script type="text/javascript" src="js/PHP.js"></script>    <!-- Outside resource, From PHPjs.org -->
+    <script type="text/javascript" src="js/jquery.session.js"></script>  <!-- Thanks to, https://github.com/AlexChittock/JQuery-Session-Plugin -->
+    <script type="text/javascript" src="js/page.js"></script>
+</head>
+
+<body>
+    <header style="position: fixed; top: 0;;width: 100%; z-index: 50;">
+        <!-- task bar -->
+        <span class="row" id="TabTask" style="vertical-align: top !important;z-index: 30;-webkit-user-select: none;-khtml-user-select: none;-moz-user-select: none;-o-user-select: none;user-select: none;">
+      		<div class="col s12 ascent-4" style="background: #0091ea;">
+      			<div class="white-text"style="float: right;">
+      			<i class="tiny material-icons">wifi</i>
+      			<i class="tiny material-icons">network_locked</i>
+      			<i class="tiny material-icons">volume_up</i>
+      			<span class="tiny material-icons"> </span>
+        <!--Make this Mandatory to leave some gap between Those icons-->
+        <span class="tiny" id="clock">00:00</span>
+        <!-- Mandatory, kepp it on bottom-->
+        </div>
+        <div style="float: left;" class="white-text">
+            <i class="tiny material-icons tooltipped" data-position="right" data-delay="50" data-tooltip="Web page online">web</i>
+            <i class="tiny material-icons tooltipped" data-position="right" data-delay="50" data-tooltip="Web-scope view">stay_current_landscape</i>
+            <i class="tiny material icons"></i>
+            <i class="tiny material-icons tooltipped" data-position="bottom" data-delay="50" data-tooltip="No Phone">phone_locked</i>
+            <i class="tiny material-icons tooltipped" data-position="bottom" data-delay="50" data-tooltip="Notifications - None">notifications_none</i>
+
+        </div>
+        </div>
+        </span>
+        <style type="text/css">
+            #Task {
+                position: absolute;
+                width: 100%;
+                height: relative;
+                opacity: 0.9;
+                z-index: 3;
+                -webkit-user-select: none;
+                -khtml-user-select: none;
+                -moz-user-select: none;
+                -o-user-select: none;
+                user-select: none;
+            }
+            divider {
+                width: 1px;
+                /* Line width */
+                
+                background-color: white;
+                /* Line color */
+                
+                height: 100%;
+                /* Override in-line if you want specific height. */
+                
+                right: 670px;
+                position: fixed;
+            }
+            #sidenav-overlay {
+                z-index: 8 !important;
+            }
+        </style>
+        <!-- Content of the Task/Status Bar, Will open on clicking the top tabler like bar-->
+        <span id="Task" style="display: none; z-index: 13;background: #00b0ff;" class="green-text text-accent-4">
+			<div id="Task_left" style="position: relative;float: left; width: 55%;padding-left: 9px;">
+				<span style="float: left;" class="white-text text-acent-2">
+				<h5>Notifications</h5>
+				Please signin
+				</span>
+        </div>
+        <divider> </divider>
+
+        <div id="Task_right" style="position: relative;float: left; width: 45%;padding-right: 9px;">
+            <span style="float: left;" class="white-text text-acent-2">
+				<h5>Inbox</h5>
+				Please signin
+				</span>
+        </div>
+        </span>
+        <nav id="Opacitized" style="position: relative; z-index:10;">
+            <div class="nav-wrapper teal lighten-2">
+                <a href="#" data-activates="mobile-demo" class="button-collapse" style="display: block !important;" id="_nav_div"><i class="material-icons">menu</i></a>
+                <a href="#" class="brand-logo" style="padding-left: 20px;"><span class="blue-grey-text text-lighten-5">Material Dimensions | MANAGER</span></a>
+                <ul class="side-nav" id="mobile-demo" style="z-index: 5 !important;">
+                    <div id="hidden_nav_div" style="display:none;">
+                        <li><a href="#"><i class="small material-icons">home</i></a>
+                        </li>
+                        <hr>
+                        <li><a href="#Profile">Profile</a>
+                        </li>
+                        <li><a href="#Manage_Penguin">Manage</a>
+                        </li>
+                        <li><a href="#Buy">Market</a>
+                        </li>
+                        <hr>
+                        <li class="collection"> <a class="collection-item" data-target="inbox_pop" id="Inbox">Inbox<span class="badge" id="_nav_inbox">1</span></a> <a class="collection-item" data-target="Noti_pop" id="Notifi">Notifications<span class="new badge" id="_nav_notifi">1</span></a> <a class="collection-item" data-target="firends_pop" id="Friends">Friends<span class="new badge" id="_nav_friends">1</span></a> <a class="collection-item" data-target="mail_pop" id="Mail">Junks<span class="badge" id="_nav_junk">1</span></a> </li>
+                    </div>
+                    <div id="nav_no_signin">
+                        <li class="black"><i class="material-icons">error_outline</i>
+                        </li>
+                        <li class="black">Please Login to use nav panel.</li>
+                    </div>
+                </ul>
+                <ul class="right">
+                    <form>
+                        <div class="input-field">
+                            <input id="search" type="search" required placeholder="Search...">
+                            <label for="search"><i class="material-icons">search</i>
+                            </label>
+                        </div>
+                    </form>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Nav Bar , App bar-->
+    <style type="text/css">
+        #Contents {
+            display: block;
+            margin-top: 90px;
+            width: 1080px;
+            z-index: 3;
+        }
+        .input-field input[type=text].invalid {
+            border-bottom: 1px solid #ff0000;
+            box-shadow: 0 1px 0 0 #ff0000;
+        }
+    </style>
+    <content id="Contents">
+        <!--Content-->
+        <right style="float: right; margin-right: -260px;">
+            <div id="cards">
+                <div class="card" style="height: 400px; width: 400px;">
+                    <div class="row">
+                        <div class="card">
+                            <div class="card-image">
+                                <img src="images/sample-1.jpg">
+                                <span class="card-title">Simplicity</span>
+                            </div>
+                            <div class="card-content">
+                                <p>Our CPPS And this Theme gives you the best Simplicity and has Friendly UI. This makes you, Gives you, A sweetness and mind-blowing appearance! Yep! It's Tasty :P</p>
+                            </div>
+                            <div class="card-action">
+                                <a href="#">This is a link</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </right>
+        <left style="float: left; margin-left: 9px;position: relative;width: 60%;" id='Meow'>
+            <h1> Login </h1>
+            <div class="row">
+                <div class="col s12">
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">person</i>
+                            <input id="username" type="text" class="validate">
+                            <label for="username" data-error="Error 0xCD4F554" data-success="User Exist" valid="">Username</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">lock_outline</i>
+                            <input id="password" type="password" class="validate">
+                            <label for="password" data-error="Error 0xU87D64" data-success="Correct">Password</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">mail</i>
+                            <input id="email" type="email" class="validate" placeholder="Currently not available" disabled>
+                            <label for="email" data-error="Error 0x6FJG63S" data-success="Email Ok">Email</label>
+                        </div>
+                    </div>
+                    <br>
+                    <button class="waves-effect white waves-white btn-flat" id="log_btn">Sign-In
+                    </button>
+                </div>
+            </div>
+
+
+        </left>
+        <!-- Modal Structure -->
+        <div id="inbox_pop" class="modal modal-fixed-footer">
+            <div class="modal-content">
+                <h4>Inbox</h4>
+                <p>You personal Inbox</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+            </div>
+        </div>
+        <div id="Noti_pop" class="modal modal-fixed-footer">
+            <div class="modal-content">
+                <h4>Notofications</h4>
+                <p>Your missed and un-missed notifications</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+            </div>
+        </div>
+        <div id="firends_pop" class="modal modal-fixed-footer">
+            <div class="modal-content">
+                <h4>Friends</h4>
+                <p>Your friends and Friend Requests</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+            </div>
+        </div>
+        <div id="mail_pop" class="modal modal-fixed-footer">
+            <div class="modal-content">
+                <h4>Mails</h4>
+                <p>Your In-game mail, Junks</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+            </div>
+        </div>
+
+    </content>
+
+</body>
+
+</html>
