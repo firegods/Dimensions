@@ -12,6 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />   
   <!--Import jQuery before materialize.js-->
     <script type="text/javascript" src="js/jQuery.2.1.1.js"></script>
+    <script type="text/javascript"src="js/jquery.hive.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
     <script type="text/javascript" src="js/html.js"></script>
     <script type="text/javascript" src="js/Client.js"></script>
@@ -79,7 +80,7 @@
 			<div id="Task_left" style="position: relative;float: left; width: 55%;padding-left: 9px;">
 				<span style="float: left;" class="white-text text-acent-2">
 				<h5>Notifications</h5>
-				Please signin
+				<span id="notifications_statusbar"></span>
 				</span>
         </div>
         <divider> </divider>
@@ -87,13 +88,13 @@
         <div id="Task_right" style="position: relative;float: left; width: 45%;padding-right: 9px;">
             <span style="float: left;" class="white-text text-acent-2">
 				<h5>Inbox</h5>
-				Please signin
+				UNDER CONSTRUCTION!
 				</span>
         </div>
         </span>
         <nav id="Opacitized" style="position: relative; z-index:10;">
             <div class="nav-wrapper teal lighten-2">
-                <a href="#" data-activates="mobile-demo" class="button-collapse" style="display: block !important;" id="_nav_div"><i class="material-icons">menu</i></a>
+                <a href="#" data-activates="mobile-demo" class="button-collapse" style="display: block !important;" id="_nav_div" ><i class="material-icons">menu</i></a>
                 <a href="#" class="brand-logo" style="padding-left: 20px;"><span class="blue-grey-text text-lighten-5">Material Dimensions | MANAGER</span></a>
                 <ul class="side-nav" id="mobile-demo" style="z-index: 5 !important;">
                     <div id="hidden_nav_div" style="display:none;">
@@ -107,7 +108,7 @@
                         <li><a href="#Buy">Market</a>
                         </li>
                         <hr>
-                        <li class="collection"> <a class="collection-item" data-target="inbox_pop" id="Inbox">Inbox<span class="badge" id="_nav_inbox">1</span></a> <a class="collection-item" data-target="Noti_pop" id="Notifi">Notifications<span class="new badge" id="_nav_notifi">1</span></a> <a class="collection-item" data-target="firends_pop" id="Friends">Friends<span class="new badge" id="_nav_friends">1</span></a> <a class="collection-item" data-target="mail_pop" id="Mail">Junks<span class="badge" id="_nav_junk">1</span></a> </li>
+                        <li class="collection"> <a class="collection-item" data-target="inbox_pop" id="Inbox">Inbox<span class="badge" id="_nav_inbox">1</span></a> <a class="collection-item" data-target="Noti_pop" id="Notifi">Notifications<span class="new badge" id="_nav_notifi">1</span></a> <a class="collection-item" data-target="firends_pop" id="Friends">Friends<span class="new badge" id="_nav_friends">1</span></a> <a class="collection-item" data-target="mail_pop" id="Mail" onclick="bind('Mail');">Junks<span class="badge" id="_nav_junk">1</span></a> </li>
                     </div>
                     <div id="nav_no_signin">
                         <li class="black"><i class="material-icons">error_outline</i>
@@ -223,15 +224,40 @@
             </div>
         </div>
         <div id="mail_pop" class="modal modal-fixed-footer">
+            <div id="MAIL2" style="display: none;">
+                <div class="modal-content">
+                <h4>Mails-POSTCARD</h4>
+                <p>Preivew of your selected postcard</p>
+                <div id="postcard">
+                    
+                </div>
+            </div>
+            <div class="modal-footer" style="height: 100px !important;">
+                <p><pre><b> CATEGORY </b>   <i id="postCategory"> </i>       <b> FROM </b>   <i id="postFrom"> </i> </pre></p>
+                <a class="waves-effect waves-green btn-flat " id="closePOST">Back</a>
+            </div>
+            </div>
+            <div id="MAIL1">
             <div class="modal-content">
                 <h4>Mails</h4>
                 <p>Your In-game mail, Junks</p>
+                <div id="junks">
+                	<div id="unreadJunks">
+                		<h6> <u>Unread Mails </u></h6><br>
+                        <div id="body_unreadJunks"></div>
+                	</div>
+                	<hr>
+                	<div id="readJunks">
+                    <h6> <u> Read Mails </u></h6><br>
+                    <div id="body_readJunks"> </div>                		
+                	</div>
+                </div>
             </div>
             <div class="modal-footer">
                 <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
             </div>
+            </div>
         </div>
-
     </content>
 
 </body>
