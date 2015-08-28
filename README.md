@@ -2,7 +2,7 @@
 A Neat, sweet, professional, Material Design based Manager cum Template (for CPPS)
 
 #Build
-This is the latest Insider Preview of Dimensions Manager. Built 231, v0.34
+This is the latest Dim(ie, build or relase) of Dimensions Manager. Dimensions-1001, v1.1-Stable
 
 #Usage
 * You need to download and Place required Images and files from rile5.
