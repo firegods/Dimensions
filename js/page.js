@@ -2,14 +2,66 @@ var Profile;
 var Manage;
 var Market;
 var Penguin;
-var Clicked = {'Mail':0, "lastNotofication":'', 'notify': false};
+var Clicked = {'Mail':0, "lastNotofication":'', 'notify': false, 'lastTarget':'', "furnitureAppended":[], "iglooAppended":[], "floorAppended":[], "inventoryAppended":[]};
 
 
 Penguin = {}
 
 /* Profile */
 function cfdb9773a (){
-
+setInterval(function(){
+	if(Penguin.id){
+	$("#user_img_swid").attr("src","http://mobcdn.clubpenguin.com/game/items/images/paper/image/120/1.png");
+	if (Object.keys(Penguin.furniture).length!=0){
+		url = "http://media8.clubpenguin.com/game/items/images/furniture/icon/120/"
+		$.each(Penguin.furniture,
+			function(a,b){
+				if ($.inArray(a, Clicked.furnitureAppended) == -1){
+					HTML = "<img quantity='"+b[1]+"' id='"+a+"'src='"+url+a+".png' title='Quantity: "+b[1]+"''></img>"
+					$("#furns").append(HTML);
+					$.merge(Clicked.furnitureAppended, [a]);
+			}
+			});
+	}
+	if (Object.keys(Penguin.igloos).length != 0){
+		url = "http://media8.clubpenguin.com/game/items/images/igloos/buildings/icon/120/"
+		$.each(Penguin.igloos,
+			function(a,b){
+				if ($.inArray(a, Clicked.iglooAppended) == -1){
+					HTML = "<img quantity='"+b+"' id='"+a+"'src='"+url+a+".png' title='Quantity: "+b+"''></img>"
+					$("#igloos").append(HTML);
+					$.merge(Clicked.iglooAppended, [a]);
+				}
+			});
+	}
+	if(Object.keys(Penguin.floors).length != 0){
+		url = "http://media8.clubpenguin.com/game/items/images/igloos/flooring/icon/120/"
+		$.each(Penguin.floors,
+			function(a,b){
+				if ($.inArray(a, Clicked.floorAppended) == -1){
+					HTML = "<img quantity='"+b+"' id='"+a+"'src='"+url+a+".png' title='Quantity: "+b+"''></img>"
+					$("#floors").append(HTML);
+					$.merge(Clicked.floorAppended, [a]);
+				}
+			});
+	}
+	if (Object.keys(Penguin.inventory).length != 0){
+		url = "http://media8.clubpenguin.com/game/items/images/paper/icon/60/"
+		$.each(Penguin.inventory.split("%"),
+			function(a,b){
+				if ($.inArray(b, Clicked.inventoryAppended) == -1){
+					HTML = "<img id='"+b+"'src='"+url+b+".png'></img>"
+					$("#invent").append(HTML);
+					$.merge(Clicked.inventoryAppended, [b]);
+				}
+			});
+	}
+	$("#user_nme").html(Penguin.username);
+	$("#e_mail").html("Currently not available");
+	$("#c_oins").html(Penguin.coins);
+	$("#ran_k").html(Penguin.badgeLevel);
+}
+},1000)
 };
 
 /* Manage */
@@ -187,11 +239,15 @@ setInterval(
 			var notification;
 			notification = [];
 			unreadPost = $.parseJSON(doPost("http://localhost:1221/user/?turn=getUnreadPost", {user:Penguin.id}, true));
-			if (unreadPost == 0){
+			if (unreadPost == 0){				
+				$("#_status_notifications").attr("data-tooltip", "Notifications - None");
+				$("#_status_notifications").html("notifications_none");
 				notifi = "<b>JUNKS (IN-GAME MAIL) :</b> No new mails.";
 				$.merge(notification, [notifi]);
 				Clicked.notify = false;
 			} else {
+				$("#_status_notifications").attr("data-tooltip", "Notifications - New *");
+				$("#_status_notifications").html("notifications_active");
 				notifi = "<b> JUNKS(IN-GAME MAIL) : </b>" + unreadPost + " .";
 				$.merge(notification, [notifi]);
 				Clicked.Noti = unreadPost;
@@ -217,7 +273,51 @@ setInterval(
 			}}
 				}
 			,10000)
+setInterval(function(){
+	hash = window.location.hash;
+	if ( hash == "#"){
+		window.location.hash = 'Home'
+	} if (hash == "#!"){
+		window.location.hash = 'Home'
+	} if (hash == ''){
+		window.location.hash = 'Home'
+	}
+	if (Clicked.lastTarget != hash){
+		Clicked.lastTarget = hash;
+		if(Penguin.id){
+		if (hash == "#Home"){
+			$("#Home").show();
+			$("#Profile").hide();
+			$("#Buy").hide();
+			$("#Manage_Penguin").hide();
+		} else if (hash == "#Profile"){			
+			$("#Home").hide();
+			$("#Profile").show();
+			$("#Buy").hide();
+			$("#Manage_Penguin").hide();
+		} else if (hash == "#Manage_Penguin"){
+			$("#Home").hide();
+			$("#Profile").hide();
+			$("#Buy").hide();
+			$("#Manage_Penguin").show();
+		} else if (hash == "#Buy"){
+			$("#Home").hide();
+			$("#Profile").hide();
+			$("#Buy").show();
+			$("#Manage_Penguin").hide();
+		} else {
+			$("#Home").show();
+			console.log(hash + ", cannot find any suitable stuff..");
+			Clicked.lastTarget = "#Home";
+			window.location.hash = "Home";
+		} 
+	} else {
+		$("#Home").show();
+		window.location.hash = "Home";
+	}
+	}
 
+},100);
 function bind(toBind){
 	if (toBind == 'Mail'){
 		$('#body_unreadJunks').html("<center>Fetching mails.. <div class='progress'><div class='indeterminate'></div></center></div>"); 
