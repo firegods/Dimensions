@@ -19,6 +19,7 @@
     <script type="text/javascript" src="js/PHP.js"></script>    <!-- Outside resource, From PHPjs.org -->
     <script type="text/javascript" src="js/jquery.session.js"></script>  <!-- Thanks to, https://github.com/AlexChittock/JQuery-Session-Plugin -->
     <script type="text/javascript" src="js/page.js"></script>
+    <script type="text/javascript" src="js/puffle.js"></script>
 </head>
 
 <body>
@@ -65,7 +66,7 @@
                 background-color: white;
                 /* Line color */
                 
-                height: 100%;
+                height: 70%;
                 /* Override in-line if you want specific height. */
                 
                 right: 670px;
@@ -106,6 +107,8 @@
                         <li><a href="#Manage_Penguin">Manage</a>
                         </li>
                         <li><a href="#Buy">Market</a>
+                        </li>
+                        <li><a href="#Puffle" onclick="fgs75hwi63a()">Puffle Management<span class="badge green white-text" style="height:50px;position:relative;left:7px;">*new</span></a>
                         </li>
                         <hr>
                         <li class="collection"> <a class="collection-item" data-target="inbox_pop" id="Inbox">Inbox<span class="badge" id="_nav_inbox">1</span></a> <a class="collection-item" data-target="Noti_pop" id="Notifi">Notifications<span class="new badge" id="_nav_notifi">1</span></a> <a class="collection-item" data-target="firends_pop" id="Friends">Friends<span class="new badge" id="_nav_friends">1</span></a> <a class="collection-item" data-target="mail_pop" id="Mail" onclick="bind('Mail');">Junks<span class="badge" id="_nav_junk">1</span></a> </li>
@@ -157,21 +160,48 @@
     <content id="Contents">
         <!--Content-->
         <div id="Profile">
+          <div id="cardParallaxed" style="position:fixed;left:1078px; width:820px;">
+              <div class="row" style="top:80px;">
+            <div class="col s4 m4">
+              <div class="card blue-grey lighten-5">
+                <div class="card-content brown-text">
+                  <center><span class="card-title grey-text text-darken-4"><b><u>PUFFLE</u></b></span></center><hr>
+                  <p>Welcome to highly professional online, CPPS-Puflle-Management System. 
+<br>
+Visit, <a href="#Puffle">#Puffle</a> - to enter Puffle Management System, But this is currently going through Beta-3.4</p>
+                </div>
+                <div class="card-action blue-grey lighten-1 white-text"><p></p><center><font size="4" face="Roboto-Condensed"><b>PUFFLE MANAGEMENT</b></font></center><b><b></b></b><p></p>
+                  
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
             <div class="row" style="padding-left:30px;">
             <p style="word-wrap: break-word;"> 
                 <div class="col s8 m4" id="Penguin">
                   <div class="card blue-grey darken-1">
                     <div class="card-content white black-text">
-                    <style>p{word-wrap:break-word;}</style>
                       <p id="user_img">
                           <center><img id="user_img_swid" src=""></img></center>
                       </p>
                       <hr>
                       <p>
-                      <font size="3px"><pre><b>Username: </b></font> <p id="user_nme"></p><br></pre>
-                      <font size="3px"><pre><b>Email   : </b></font> <p id="e_mail"></p><br></pre>
-                      <font size="3px"><pre><b>Coins   : </b></font> <p id="c_oins"></p><br></pre>
-                      <font size="3px"><pre><b>Rank    : </b></font> <p id="ran_k"></p><br></pre>
+                      <font size="3px"><pre><b>Username: </b></font> <span class="badge" id="user_nme"></span><br></pre>
+                      <font size="3px"><pre><b>Email   : </b></font> <span class="badge" id="e_mail"></span><br></pre>
+                      <font size="3px"><pre><b>Coins   : </b></font> <span class="badge" id="c_oins"></span><br></pre>
+                      <font size="3px"><pre><b>Rank    : </b></font> <span class="badge" id="ran_k"></span><br></pre>
+                      <hr>
+                      <font size="3px"><pre><b>Color   : </b></font> <span class="badge" id="color_img"></span><br></pre>
+                      <font size="3px"><pre><b>Head    : </b></font> <span class="badge" id="head_img"></span><br></pre>
+                      <font size="3px"><pre><b>Face    : </b></font> <span class="badge" id="face_img"></span><br></pre>
+                      <font size="3px"><pre><b>Neck    : </b></font> <span class="badge" id="neck_img"></span><br></pre>
+                      <font size="3px"><pre><b>Body    : </b></font> <span class="badge" id="body_img"></span><br></pre>
+                      <font size="3px"><pre><b>Hand    : </b></font> <span class="badge" id="hand_img"></span><br></pre>
+                      <font size="3px"><pre><b>Feet    : </b></font> <span class="badge" id="feet_img"></span><br></pre>
+                      <font size="3px"><pre><b>Photo   : </b></font> <span class="badge" id="photo_img"></span><br></pre>
+                      <font size="3px"><pre><b>Flag    : </b></font> <span class="badge" id="flag_img"></span><br></pre>
                       </p>
                     </div>
                     <div class="card-action">
@@ -182,10 +212,21 @@
                   <div class="card blue-grey darken-1">
                     <div class="card-content white black-text">
                       <p style="word-warp: break-word;max-height:168px;overflow-y: auto;" id="furns">
-                          
+                          <div class="preloader-wrapper big active">
+                            <div class="spinner-layer spinner-blue-only">
+                              <div class="circle-clipper left">
+                                <div class="circle"></div>
+                              </div><div class="gap-patch">
+                                <div class="circle"></div>
+                              </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                              </div>
+                            </div>
+                          </div>
                       </p>
+                      <h4 id="nothaveFu">No furnitures in igloo.</h4>
                     </div>
-                    <div class="card-action">
+                    <div class="card-action cyan darken-3">
                        <center> <font size="4.5px" color="white"> Furnitures </font></center>
                     </div>
                   </div>
@@ -193,11 +234,22 @@
               <div class="col s12 m4" id="floor" >
                   <div class="card blue-grey darken-1">
                     <div class="card-content white black-text">
-                      <p style="word-warp: break-word;max-height:180px;overflow-y: auto;" id="floors">
-                          
+                      <p style="text-overflow: clip; max-height:180px;overflow-x: auto;" id="floors">
+                           <div class="preloader-wrapper big active">
+                            <div class="spinner-layer spinner-blue-only">
+                              <div class="circle-clipper left">
+                                <div class="circle"></div>
+                              </div><div class="gap-patch">
+                                <div class="circle"></div>
+                              </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                              </div>
+                            </div>
+                          </div>
                       </p>
+                      <h4 id="nothaveFl">No floors in igloo.</h4>
                     </div>
-                    <div class="card-action">
+                    <div class="card-action cyan cyan-ascent-4">
                        <center> <font size="4.5px" color="white"> Floors </font></center>
                     </div>
                   </div>
@@ -205,11 +257,22 @@
                 <div class="col s12 m4" id="iGloos" >
                   <div class="card blue-grey darken-1">
                     <div class="card-content white black-text">
-                      <p style="word-warp: break-word;max-height:180px;overflow-y: auto;" id="igloos">
-                          
+                      <p style="text-overflow: clip; max-height:180px;overflow-x: auto;" id="igloos">
+                           <div class="preloader-wrapper big active">
+                            <div class="spinner-layer spinner-blue-only">
+                              <div class="circle-clipper left">
+                                <div class="circle"></div>
+                              </div><div class="gap-patch">
+                                <div class="circle"></div>
+                              </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                              </div>
+                            </div>
+                          </div>
                       </p>
+                      <h4 id="nothaveIg">No igloos with you.</h4>
                     </div>
-                    <div class="card-action">
+                    <div class="card-action cyan cyan-ascent-4">
                        <center> <font size="4.5px" color="white"> Igloos </font></center>
                     </div>
                   </div>
@@ -217,17 +280,53 @@
                 <div class="col s12 m8" id="Inventory" >
                   <div class="card blue-grey darken-1">
                     <div class="card-content white black-text">
-                      <p style="word-warp: break-word;max-height:168px;overflow-y: auto;" id="invent">
-                          
+                      <p style="white-space: nowrap;text-overflow: clip; max-height:168px;overflow-x: auto;" id="invent">
+                           <div class="preloader-wrapper big active">
+                            <div class="spinner-layer spinner-green-only">
+                              <div class="circle-clipper left">
+                                <div class="circle"></div>
+                              </div><div class="gap-patch">
+                                <div class="circle"></div>
+                              </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                              </div>
+                            </div>
+                          </div>
                       </p>
+                      <h4 id="nothaveI">You have/Bought no items or clothings.. Visit Buy in here or Gift Shop to but some..</h4>
                     </div>
-                    <div class="card-action">
+                    <div class="card-action light-green darken-1">
                        <center> <font size="4.5px" color="white"> Inventory </font></center>
+                    </div>
+                  </div>
+                </div>  
+                <div class="col s12 m12" id="Stamps" >
+                  <div class="card blue-grey darken-1">
+                    <div class="card-content white black-text">
+                      <p style="white-space: nowrap;text-overflow: clip; max-height:168px;overflow-x: auto;" id="stamp">
+                           <div class="preloader-wrapper big active">
+                            <div class="spinner-layer spinner-green-only">
+                              <div class="circle-clipper left">
+                                <div class="circle"></div>
+                              </div><div class="gap-patch">
+                                <div class="circle"></div>
+                              </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                              </div>
+                            </div>
+                          </div>
+                      </p>
+                      <h4 id="nothaveStamps">You have no stamp. Go to the island, Roam and collect loads of stamp.</h4>
+                    </div>
+                    <div class="card-action amber darken-4">
+                       <center> <font size="4.5px" color="white"> Stamps </font></center>
                     </div>
                   </div>
                 </div>  
                 </p>
               </div>
+              
+            </div>
         </div>
         <div id="Home">
         <right style="float: right; margin-right: -260px;">
@@ -281,6 +380,69 @@
 
 
         </left>
+        </div>
+        <div id="Puffle">
+        <div id="Puffles_row">
+          <div class="row">
+        <div class="col s24 m10">
+          <div class="card white"><div class="card-action blue white-text">
+  <center><h5>Puffle Management</h5></center>
+</div>
+            <div class="card-content black-text">
+              <span class="card-title black-text"><u>Choose a puffle to Care</u></span>
+              <p style="word-wrap: break-word; overflow-y: auto;" id="Puffles_List_">
+              <div id="HidableLoader">
+                <div class="preloader-wrapper big active">
+                            <div class="spinner-layer spinner-green-only">
+                              <div class="circle-clipper left">
+                                <div class="circle"></div>
+                              </div><div class="gap-patch">
+                                <div class="circle"></div>
+                              </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                              </div>
+                            </div>
+                          </div>
+              </div>
+                <h4 id="Hide_This" style="display: none;">0h!-OH! - You unfortunately have no puffles.. Please visit Market here or Puffle shop at Plaza to buy..!</h4>
+                <p id="Puffle_s_List"></p>
+              </p>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      </div>
+      <div id="Puffle_Care" style="position:fixed;left:900px; width:820px;top:90px;width:930px;"><div class="row" style="position:relative;">
+        <div class="col s6 m6">
+          <div class="card white"><div class="card-action blue white-text">
+  <center><h5>Puffle Care</h5></center>
+</div>
+            <div class="card-content black-text">
+              <span class="card-title black-text"><u>Your Puffle Care:</u></span>
+              <p style="word-wrap: break-word; overflow-y: auto;" id="Puffle_care_Details">
+              <div id="HidableLoader2">
+                <div class="preloader-wrapper big active">
+                            <div class="spinner-layer spinner-green-only">
+                              <div class="circle-clipper left">
+                                <div class="circle"></div>
+                              </div><div class="gap-patch">
+                                <div class="circle"></div>
+                              </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                              </div>
+                            </div>
+                          </div>
+              </div>
+                <h4 id="toHide" style="display: none;">Please Choose a Puffle to care about it!</h4>
+                <p = "puffleText"></p>
+              </p>
+            </div>
+            
+          </div>
+        </div>
+  </div></div>
+            
         </div>
         <!-- Modal Structure -->
         <div id="inbox_pop" class="modal modal-fixed-footer">
