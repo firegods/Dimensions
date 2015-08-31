@@ -2,17 +2,22 @@ var Profile;
 var Manage;
 var Market;
 var Penguin;
-var Clicked = {'Mail':0, "lastNotofication":'', 'notify': false, 'lastTarget':'', "furnitureAppended":[], "iglooAppended":[], "floorAppended":[], "inventoryAppended":[]};
+var Clicked = {'Mail':0, "lastNotofication":'', 'notify': false, 'lastTarget':'', "furnitureAppended":[], "iglooAppended":[], "floorAppended":[], "inventoryAppended":[], "stampAppended":[]};
 
 
 Penguin = {}
 
 /* Profile */
 function cfdb9773a (){
+
 setInterval(function(){
 	if(Penguin.id){
+	$.extend(Penguin, fetchUsers(Penguin.id));
 	$("#user_img_swid").attr("src","http://mobcdn.clubpenguin.com/game/items/images/paper/image/120/1.png");
 	if (Object.keys(Penguin.furniture).length!=0){
+		$("#Furnitures .preloader-wrapper").remove();
+		$("#nothaveFu").hide()
+		$("#furns").show();
 		url = "http://media8.clubpenguin.com/game/items/images/furniture/icon/120/"
 		$.each(Penguin.furniture,
 			function(a,b){
@@ -22,9 +27,15 @@ setInterval(function(){
 					$.merge(Clicked.furnitureAppended, [a]);
 			}
 			});
+	} else {
+		$("#Furnitures .preloader-wrapper").remove();
+		$("#nothaveFu").show();$("#furns").hide()
 	}
 	if (Object.keys(Penguin.igloos).length != 0){
+		$("#iGloos .preloader-wrapper").remove();
+		$("#nothaveIg").hide();
 		url = "http://media8.clubpenguin.com/game/items/images/igloos/buildings/icon/120/"
+		$("#igloos").show();
 		$.each(Penguin.igloos,
 			function(a,b){
 				if ($.inArray(a, Clicked.iglooAppended) == -1){
@@ -33,9 +44,15 @@ setInterval(function(){
 					$.merge(Clicked.iglooAppended, [a]);
 				}
 			});
+	} else {
+		$("#iGloos .preloader-wrapper").remove();
+		$("#nothaveIg").show();$("#igloos").hide();
 	}
 	if(Object.keys(Penguin.floors).length != 0){
+		$("#nothaveFl").hide();
 		url = "http://media8.clubpenguin.com/game/items/images/igloos/flooring/icon/120/"
+		$("#floor .preloader-wrapper").remove();
+		$("#floors").show();
 		$.each(Penguin.floors,
 			function(a,b){
 				if ($.inArray(a, Clicked.floorAppended) == -1){
@@ -44,9 +61,15 @@ setInterval(function(){
 					$.merge(Clicked.floorAppended, [a]);
 				}
 			});
+	} else {
+		$("#floor .preloader-wrapper").remove();
+		$("#nothaveFl").show();$("#floors").hide();
 	}
-	if (Object.keys(Penguin.inventory).length != 0){
+	if (Object.keys(Penguin.inventory.split("%")).length != 0){
 		url = "http://media8.clubpenguin.com/game/items/images/paper/icon/60/"
+		$("#Inventory .preloader-wrapper").remove();
+		$("#nothaveI").hide();
+		$("#invent").show();
 		$.each(Penguin.inventory.split("%"),
 			function(a,b){
 				if ($.inArray(b, Clicked.inventoryAppended) == -1){
@@ -55,6 +78,45 @@ setInterval(function(){
 					$.merge(Clicked.inventoryAppended, [b]);
 				}
 			});
+	} else {
+		$("#Inventory .preloader-wrapper").remove();
+		$("#nothaveI").show();$("#invent").hide();
+	}
+	if (Object.keys(Penguin.stamps.split("%")).length != 0){
+		url = "http://cpitems.com/items/media/stamps/stamps.swf?id=";
+		$("#Stamps .preloader-wrapper").remove();
+		$("#nothaveStamps").hide();
+		$("#stamp").show();
+		$.each(Penguin.stamps.split("%"),
+			function(a,b){
+				if ($.inArray(b, Clicked.stampAppended) == -1){
+					HTML = '<object width="75" height="75"><param name="movie" value="'+url+b+'"><embed src="'+url+b+'" width="75" height="75"></object>';
+					$("#stamp").append(HTML);
+					$.merge(Clicked.stampAppended, [b]);
+				}
+			});
+	} else {
+		$("#Stamps .preloader-wrapper").remove();
+		$("#nothaveStamps").show();$("#stamp").hide();
+	}
+	if (Penguin.head != 0){
+		$("#head_img").html("<img src='http://media8.clubpenguin.com/game/items/images/paper/icon/60/"+Penguin.head+".png'></img>")
+	} if (Penguin.color != 0){
+		$("#color_img").html("<img src='http://media8.clubpenguin.com/game/items/images/paper/icon/60/"+Penguin.color+".png'></img>")
+	} if (Penguin.neck != 0){
+		$("#neck_img").html("<img src='http://media8.clubpenguin.com/game/items/images/paper/icon/60/"+Penguin.neck+".png'></img>")
+	} if (Penguin.hand != 0){
+		$("#hand_img").html("<img src='http://media8.clubpenguin.com/game/items/images/paper/icon/60/"+Penguin.hand+".png'></img>")
+	} if (Penguin.feet != 0){
+		$("#feet_img").html("<img src='http://media8.clubpenguin.com/game/items/images/paper/icon/60/"+Penguin.feet+".png'></img>")
+	} if (Penguin.photo != 0){
+		$("#photo_img").html("<img src='http://media8.clubpenguin.com/game/items/images/paper/icon/60/"+Penguin.photo+".png'></img>")
+	} if (Penguin.flag != 0){
+		$("#flag_img").html("<img src='http://media8.clubpenguin.com/game/items/images/paper/icon/60/"+Penguin.flag+".png'></img>")
+	} if (Penguin.body != 0){
+		$("#body_img").html("<img src='http://media8.clubpenguin.com/game/items/images/paper/icon/60/"+Penguin.body+".png'></img>")
+	} if (Penguin.face != 0){
+		$("#face_img").html("<img src='http://media8.clubpenguin.com/game/items/images/paper/icon/60/"+Penguin.face+".png'></img>")
 	}
 	$("#user_nme").html(Penguin.username);
 	$("#e_mail").html("Currently not available");
@@ -88,7 +150,6 @@ function DoGetNav(){
 	$.each(junk,
 		function(i,item){
 			items = item.split("|");
-			console.log(items);
 			Penguin['allJunks'][items[0]] = items;
 	});
 	console.log(Penguin.allJunks);
@@ -285,34 +346,52 @@ setInterval(function(){
 	if (Clicked.lastTarget != hash){
 		Clicked.lastTarget = hash;
 		if(Penguin.id){
-		if (hash == "#Home"){
+		if (hash == "#Puffle"){			
+			$("#Puffle").show();
+			$("#Home").hide();
+			$("#Profile").hide();
+			$("#Buy").hide();
+			$("#Manage_Penguin").hide();
+		} else if (hash == "#Home"){
 			$("#Home").show();
 			$("#Profile").hide();
 			$("#Buy").hide();
 			$("#Manage_Penguin").hide();
+			$("#Puffle").hide();
 		} else if (hash == "#Profile"){			
 			$("#Home").hide();
 			$("#Profile").show();
 			$("#Buy").hide();
 			$("#Manage_Penguin").hide();
+			$("#Puffle").hide();
 		} else if (hash == "#Manage_Penguin"){
 			$("#Home").hide();
 			$("#Profile").hide();
 			$("#Buy").hide();
 			$("#Manage_Penguin").show();
+			$("#Puffle").hide();
 		} else if (hash == "#Buy"){
 			$("#Home").hide();
 			$("#Profile").hide();
 			$("#Buy").show();
 			$("#Manage_Penguin").hide();
+			$("#Puffle").hide();
 		} else {
 			$("#Home").show();
+			$("#Profile").hide();			
+			$("#Buy").hide();
+			$("#Manage_Penguin").hide();
+			$("#Puffle").hide();
 			console.log(hash + ", cannot find any suitable stuff..");
 			Clicked.lastTarget = "#Home";
 			window.location.hash = "Home";
 		} 
 	} else {
 		$("#Home").show();
+		$("#Profile").hide();			
+		$("#Buy").hide();
+		$("#Manage_Penguin").hide();
+		$("#Puffle").hide();
 		window.location.hash = "Home";
 	}
 	}
